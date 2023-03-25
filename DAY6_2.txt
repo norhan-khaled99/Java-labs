@@ -1,0 +1,43 @@
+import javax.swing.*;
+import java.awt.*;
+
+class MyPanel extends JPanel 
+{
+    int x;
+
+    public MyPanel() {
+        this.setBackground(Color.pink);
+        new Thread(() -> {
+            while (true) {
+                try {
+                    this.repaint();
+                    Thread.sleep(1000);
+                    x += 15;
+                } catch (InterruptedException e) {
+                    System.out.println(e);
+                }
+            }
+        }).start();
+        x = 50;
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (x >= this.getWidth()) x = 0;
+        g.drawString("Move", x, 100);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        JFrame f = new JFrame();
+        MyPanel p = new MyPanel();
+        f.setTitle("DAY6_2");
+        f.setContentPane(p);
+        f.setLocation(750,400);
+        f.setSize(400,300);
+        f.setVisible(true);
+
+    }
+}

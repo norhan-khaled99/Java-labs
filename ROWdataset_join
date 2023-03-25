@@ -1,0 +1,42 @@
+import java.sql.*;
+import javax.sql.rowset.*;
+import javax.sql.rowset.spi.*;
+
+public class JoinRowSetExample {
+
+    public static void main(String[] args) {
+        
+        try {
+            
+            JoinRowSet joinRowSet = RowSetProvider.newFactory().createJoinRowSet();
+
+            String url = "jdbc:mysql://localhost/employee";
+            String user = "root";
+            String password = "123456";
+            Connection connection = DriverManager.getConnection(url, user, password);
+            CachedRowSet rowSet1 = RowSetProvider.newFactory().createCachedRowSet();
+            CachedRowSet rowSet2 = RowSetProvider.newFactory().createCachedRowSet();
+
+            rowSet1.setCommand("SELECT * FROM Employees WHERE Age > 30");
+
+            rowSet2.setCommand("SELECT * FROM Departments WHERE DepartmentName = 'Sales'");
+
+            rowSet1.execute(connection);
+            rowSet2.execute(connection);
+
+            joinRowSet.addRowSet(rowSet1, "EmployeeID");
+            joinRowSet.addRowSet(rowSet2, "DepartmentID");
+
+            while (joinRowSet.next()) {
+                System.out.println(joinRowSet.getString("FirstName") + " "+ joinRowSet.getString("LastName") + " "
+                + joinRowSet.getString("DepartmentName"));
+            }
+
+            // Close the connection
+            connection.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+}

@@ -1,0 +1,48 @@
+import java.util.function.BiPredicate;
+import java.util.Scanner;
+
+
+
+
+public class StringUtils {
+    public static String betterString(String s1, String s2, BiPredicate<String, String> better) {
+        if (better.test(s1, s2)) {
+            return s1;
+        } else {
+            return s2;
+        }
+    }
+}
+
+
+
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("please enter first string");
+        String string1 = sc.nextLine();
+        System.out.println("please enter second string");
+        String string2 = sc.nextLine();
+        String longer = StringUtils.betterString(string1, string2, (s1, s2) -> s1.length() > s2.length());
+        String first = StringUtils.betterString(string1, string2, (s1, s2) -> true);
+        System.out.println("Longer string: " + longer);
+        System.out.println("First string: " + first);
+
+        System.out.println("please enter first you want to check");
+        String str1 = sc.nextLine();
+        System.out.println("please enter second you want to check");
+        String str2 = sc.nextLine();
+        System.out.println("String 1 contains only alphabets: " + containsOnlyAlphabets(str1));
+        System.out.println("String 2 contains only alphabets: " + containsOnlyAlphabets(str2));
+    }
+
+    public static boolean containsOnlyAlphabets(String str) {
+        for (int i = 0; i < str.length(); i++) {
+            if (!Character.isLetter(str.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+}

@@ -1,0 +1,103 @@
+import javax.swing.*;
+import java.awt.*;
+
+
+import java.io.FileInputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Properties;
+
+public class DatabaseConnector {
+    public static void main(String[] args) throws Exception {
+        Properties props = new Properties();
+        props.load(new FileInputStream("database.properties"));
+        
+        
+        String url = props.getProperty("url");
+        String username = props.getProperty("username");
+        String password = props.getProperty("password");
+        
+        DataSource dataSource = new DataSource();
+        dataSource.setUrl(url);
+        dataSource.setUsername(username);
+        dataSource.setPassword(password);
+        
+        Connection connection = dataSource.getConnection();
+        
+        Statement statement = connection.createStatement();
+        
+        String query = "SELECT name, salary, age FROM mytable";
+        ResultSet resultSet = statement.executeQuery(query);
+        
+        // Print the result in a specific format
+        while (resultSet.next()) {
+            String field1 = resultSet.getString("name");
+            String field2 = resultSet.getString("salary");
+            String field3 = resultSet.getString("age");
+            System.out.println(String.format("%s - %s - %s", field1, field2, field3));
+        }
+        
+        // Close connection
+        resultSet.close();
+        statement.close();
+        connection.close();
+    }
+}
+
+
+
+
+
+public class MainFrame extends JFrame {
+
+    private JPanel mainPanel;
+    private JLabel field1Label, field2Label, field3Label;
+    private JTextField field1TextField, field2TextField, field3TextField;
+    private JButton nextButton, prevButton, firstButton, lastButton, insertButton;
+    private JTable dataTable;
+
+    public MainFrame() {
+        super("Database Viewer");
+
+        mainPanel = new JPanel();
+        mainPanel.setLayout(new GridLayout(4, 2, 5, 5));
+
+        field1Label = new JLabel("Field 1");
+        field2Label = new JLabel("Field 2");
+        field3Label = new JLabel("Field 3");
+        field1TextField = new JTextField();
+        field2TextField = new JTextField();
+        field3TextField = new JTextField();
+        nextButton = new JButton("Next");
+        prevButton = new JButton("Previous");
+        firstButton = new JButton("First");
+        lastButton = new JButton("Last");
+        insertButton = new JButton("New");
+        dataTable = new JTable();
+
+        mainPanel.add(field1Label);
+        mainPanel.add(field1TextField);
+        mainPanel.add(field2Label);
+        mainPanel.add(field2TextField);
+        mainPanel.add(field3Label);
+        mainPanel.add(field3TextField);
+        mainPanel.add(insertButton);
+        mainPanel.add(new JPanel());
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        buttonPanel.add(firstButton);
+        buttonPanel.add(prevButton);
+        buttonPanel.add(nextButton);
+        buttonPanel.add(lastButton);
+
+        add(mainPanel, BorderLayout.NORTH);
+        add(buttonPanel, BorderLayout.CENTER);
+        add(new JScrollPane(dataTable), BorderLayout.SOUTH);
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(800, 600);
+        setVisible(true);
+    }
+}

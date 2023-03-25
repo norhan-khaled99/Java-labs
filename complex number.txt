@@ -1,0 +1,72 @@
+public class Complex<T extends Number> {
+    private T real;
+    private T imaginary;
+
+    public Complex(T real, T imaginary) {
+        this.real = real;
+        this.imaginary = imaginary;
+    }
+
+    public T getReal() {
+        return real;
+    }
+
+    public void setReal(T real) {
+        this.real = real;
+    }
+
+    public T getImaginary() {
+        return imaginary;
+    }
+
+    public void setImaginary(T imaginary) {
+        this.imaginary = imaginary;
+    }
+
+    public Complex<T> add(Complex<T> other) {
+        T newReal = (T) (Double.valueOf(this.real.doubleValue() + other.getReal().doubleValue()));
+        T newImaginary = (T) (Double.valueOf(this.imaginary.doubleValue() + other.getImaginary().doubleValue()));
+        return new Complex<>(newReal, newImaginary);
+    }
+
+    public Complex<T> subtract(Complex<T> other) {
+        T newReal = (T) (Double.valueOf(this.real.doubleValue() - other.getReal().doubleValue()));
+        T newImaginary = (T) (Double.valueOf(this.imaginary.doubleValue() - other.getImaginary().doubleValue()));
+        return new Complex<>(newReal, newImaginary);
+    }
+
+    public Complex<T> multiply(Complex<T> other) {
+        T newReal = (T) (Double.valueOf((this.real.doubleValue() * other.getReal().doubleValue()) - 
+                (this.imaginary.doubleValue() * other.getImaginary().doubleValue())));
+        T newImaginary = (T) (Double.valueOf((this.real.doubleValue() * other.getImaginary().doubleValue()) +
+                (this.imaginary.doubleValue() * other.getReal().doubleValue())));
+        return new Complex<>(newReal, newImaginary);
+    }
+
+    @Override
+    public String toString() {
+        if(imaginary.intValue()<0)
+            return "(" + real + " - " + (-imaginary)+"i)";
+        
+         return "(" + real + " + " + imaginary+"i)";
+        
+
+
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        Complex<Double> c1 = new Complex<>(2.0, 3.0);
+        Complex<Double> c2 = new Complex<>(-1.5, 2.5);
+
+        Complex<Double> sum = c1.add(c2);
+        System.out.println(sum); 
+
+        Complex<Double> difference = c1.subtract(c2);
+        System.out.println(difference); 
+
+        Complex<Double> product = c1.multiply(c2);
+        System.out.println(product);         
+    }
+}

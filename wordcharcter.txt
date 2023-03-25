@@ -1,0 +1,69 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class WordCharacterCounter extends JFrame implements ActionListener {
+
+    private JTextArea textArea;
+    private JLabel wordCountLabel, charCountLabel;
+    private JButton wordCountButton, charCountButton;
+
+    public WordCharacterCounter() {
+        setLayout(null);
+
+        textArea = new JTextArea();
+        textArea.setBounds(20, 20, 300, 100);
+        add(textArea);
+
+
+        wordCountLabel = new JLabel();
+        wordCountLabel.setBounds(20, 140, 150, 30);
+        add(wordCountLabel);
+
+        wordCountButton = new JButton("Count Words");
+        wordCountButton.setBounds(180, 140, 140, 30);
+        wordCountButton.addActionListener(this);
+        add(wordCountButton);
+
+        charCountLabel = new JLabel();
+        charCountLabel.setBounds(20, 180, 150, 30);
+        add(charCountLabel);
+
+        charCountButton = new JButton("Count Characters");
+        charCountButton.setBounds(180, 180, 140, 30);
+        charCountButton.addActionListener(this);
+        add(charCountButton);
+
+
+        setTitle("Word and Character Counter");
+        setSize(350, 250);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String text = textArea.getText();
+        if (e.getSource() == wordCountButton) {
+            String[] words = text.split("\\s+");
+            int wordCount = words.length;
+            wordCountLabel.setText("Number of Words: " + wordCount);
+        } else if (e.getSource() == charCountButton) {
+            int charCount = text.length();
+            charCountLabel.setText("Number of Characters: " + charCount);
+        }
+    }
+
+
+}
+
+
+public class Main {
+    public static void main(String[] args) {
+     new IPAddressFinder();
+     new WordCharacterCounter();
+
+    }
+}

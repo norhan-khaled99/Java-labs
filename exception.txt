@@ -1,0 +1,36 @@
+class MyException extends Exception {
+    public MyException(String message) {
+        super(message);
+    }
+}
+
+
+class MyClass1 {
+    public void method1() throws MyException {
+        throw new MyException("Error in method1");
+    }
+
+    public void method2() throws MyException {
+        throw new MyException("Error in method2");
+    }
+
+    public void method3() throws MyException {
+        throw new MyException("Error in method3");
+    }
+}
+
+class MyClass2 {
+    public static void main(String[] args) {
+        MyClass1 obj = new MyClass1();
+
+        try {
+            obj.method1();
+            obj.method2();
+            obj.method3();
+        } catch (MyException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            System.out.println("Finally block executed");
+        }
+    }
+}

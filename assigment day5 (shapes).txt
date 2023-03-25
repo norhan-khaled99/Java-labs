@@ -1,0 +1,43 @@
+import java.util.List;
+
+abstract public class Shape {
+    public  abstract  void draw();
+}
+class Rectangle extends Shape{
+    @Override
+    public void draw() {
+        System.out.println("Drawing a rectangle");
+    }
+}
+class Circle extends Shape {
+    public void draw() {
+        System.out.println("Drawing a circle");
+    }
+}
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+    public class Main {
+        public static void main(String[] args) {
+            List<Rectangle> rectangles=new ArrayList<Rectangle>();
+            rectangles.add(new Rectangle());
+            rectangles.add(new Rectangle());
+            List<Shape>shapes=new ArrayList<Shape>();
+            shapes.add(new Rectangle());
+            shapes.add(new Circle());
+            drawAll(rectangles);
+            drawAll(shapes);
+        }
+
+        private static void drawAll(List< ? extends  Shape> shapes) {
+            for(Shape s:shapes)
+            {
+                s.draw();
+            }
+        }
+    }
+
+

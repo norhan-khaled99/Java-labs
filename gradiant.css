@@ -1,0 +1,10 @@
+.label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.button {
+    -fx-background-color: linear-gradient(to bottom, #9be9ff, #ffa8a8);
+    -fx-text-fill: white;
+}

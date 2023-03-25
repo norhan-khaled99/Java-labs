@@ -1,0 +1,28 @@
+    public MyPannel() {
+        this.setBackground(Color.gray);
+    }
+
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawString(new Date().toLocaleString(),100,100);
+    }
+}
+
+
+
+    public static void main(String[] args) {
+
+        JFrame f=new JFrame();
+        MyPannel mp=new MyPannel();
+        f.setTitle("new window");
+        f.setSize(400,400);
+        f.setVisible(true);
+        f.setLocation(750,400);
+        f.setContentPane(mp);
+        f.add(mp);
+       // f.setDefaultCloseOperation(1);
+
+    }
+}

@@ -1,0 +1,66 @@
+import javax.swing.*;
+import java.awt.event.ActionListener;
+import java.awt.event.*;
+import java.net.*;
+
+public class IPAddressFinder extends JFrame implements ActionListener {
+    private JTextField inputField;
+    private JLabel resultLabel;
+    private JButton searchButton;
+
+
+    public IPAddressFinder() {
+        // Set the layout to null
+        setLayout(null);
+
+        // Create the input field
+        inputField = new JTextField();
+        inputField.setBounds(20, 20, 200, 30);
+        add(inputField);
+
+        // Create the search button
+        searchButton = new JButton("Search");
+        searchButton.setBounds(240, 20, 80, 30);
+        searchButton.addActionListener(this);
+        add(searchButton);
+
+        // Create the result label
+        resultLabel = new JLabel();
+        resultLabel.setBounds(20, 60, 300, 30);
+        add(resultLabel);
+
+        // Set the frame properties
+        setTitle("IP Address Finder");
+        setSize(350, 150);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == searchButton) {
+            try {
+                String url = inputField.getText();
+                InetAddress address = InetAddress.getByName(url);
+                resultLabel.setText("IP Address: " + address.getHostAddress());
+            } catch (UnknownHostException ex) {
+                JOptionPane.showMessageDialog(this, "Invalid URL", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+}
+
+
+
+public class Main {
+    public static void main(String[] args) {
+     new IPAddressFinder();
+
+    }
+}
+
+
+

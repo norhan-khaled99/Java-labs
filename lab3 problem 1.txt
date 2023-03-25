@@ -1,0 +1,20 @@
+
+
+import java.util.Scanner;
+import java.util.function.Function;
+public class Main {
+
+    public static double celsiusToFahrenheit(double celsius) {
+        Function<Double, Double> converter = cel -> cel * 9/5 + 32;
+        return converter.apply(celsius);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        double celsius ;
+        System.out.println("please degree you want to convert");
+        celsius = sc.nextDouble();
+        double fahrenheit = celsiusToFahrenheit(celsius);
+        System.out.println(celsius + " degrees Celsius is " + fahrenheit + " degrees Fahrenheit.");
+    }
+}
